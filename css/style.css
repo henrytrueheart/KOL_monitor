@@ -1,0 +1,63 @@
+header {
+  text-align: center;
+}
+
+html, body {
+  margin: 0;
+  padding: 50px;
+  background-color: silver;
+}
+
+.container {
+  padding: 20px;
+  background-color: white;
+}
+.container .guide {
+  text-align: center;
+  cursor: pointer;
+}
+.container a, .container .mode {
+  font-size: 20px;
+  text-align: center;
+  display: inline-block;
+  color: black;
+  text-align: middle;
+  font-weight: normal;
+}
+.container .scout {
+  color: red;
+}
+.container .display_total {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+.container .display_total hr {
+  border-top: 1px solid gray;
+}
+
+article {
+  position: relative;
+  background-color: white;
+  color: black;
+}
+
+iframe {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 30px;
+}
+
+.date {
+  text-align: center;
+  color: #808080;
+}
+
+#count {
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+}
