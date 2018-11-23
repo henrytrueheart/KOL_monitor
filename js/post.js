@@ -6,11 +6,11 @@ $(function(){
           // 姓名
           var name = $('#name').val();
           // id
-          var id = $('#id').val(); 
+          var url = $('#url').url(); 
           // 價格
           var price=$('#price').val();
           //類型
-          var type=$('#price').val();
+          var type=$('#type').val();
           
          
         // 訂單  後面再加上選項數量*價格
@@ -34,8 +34,8 @@ $(function(){
           $('#name').css('border','1px solid #ff0000');
           status = false;
         }
-        if(id == ''){
-          $('#id').css('border','1px solid #ff0000');
+        if(url == ''){
+          $('#url').css('border','1px solid #ff0000');
           status = false;
         }
         if(price == ''){
@@ -63,7 +63,7 @@ $(function(){
           var data = {
             'time': filltime,
             'name' : name,
-            'id': id,
+            'url': url,
             'price': price,
             'type': type
           }
@@ -77,7 +77,7 @@ $(function(){
         // 這邊用get type
         type: "get",
         // api url - google appscript 產出的 url
-        url: "https://script.google.com/macros/s/AKfycbxC-gaC_4GqJXKC35PUjtVkNWQE85m6598-5sXo2XwyLvCgd2I/exec",
+        url: "https://script.google.com/macros/s/AKfycbwgb2p7hHLRGgav8B1KxIkx1We7IDjjpJBiYDAf-WZDPRn1UlYT/exec",
         // 剛剛整理好的資料帶入
         data: data,
         // 資料格式是JSON 
