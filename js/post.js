@@ -82,6 +82,9 @@ $(function(){
         data: data,
         // 資料格式是JSON 
         dataType: "JSON",
+        // 加 headers
+        header:{"Access-Control-Allow-Origin": *}
+        
         // 成功送出 會回頭觸發下面這塊感謝
         success: function (response) {
           console.log(response);
