@@ -77,7 +77,7 @@ $(function(){
         // 這邊用get type
         type: "get",
         // api url - google appscript 產出的 url
-        url: "https://script.google.com/macros/s/AKfycbwgb2p7hHLRGgav8B1KxIkx1We7IDjjpJBiYDAf-WZDPRn1UlYT/exec",
+        url: "https://script.google.com/macros/s/AKfycbxC-gaC_4GqJXKC35PUjtVkNWQE85m6598-5sXo2XwyLvCgd2I/exec",
         // 剛剛整理好的資料帶入
         data: data,
         // 資料格式是JSON 
