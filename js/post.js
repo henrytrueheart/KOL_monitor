@@ -6,7 +6,7 @@ $(function(){
           // 姓名
           var name = $('#name').val();
           // id
-          var url = $('#url').url(); 
+          var url = $('#url').val(); 
           // 價格
           var price=$('#price').val();
           //類型
