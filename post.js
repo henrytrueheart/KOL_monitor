@@ -34,7 +34,7 @@ $(function(){
           $('#name').css('border','1px solid #ff0000');
           status = false;
         }
-        if(id == ''){
+        if(url == ''){
           $('#url').css('border','1px solid #ff0000');
           status = false;
         }
@@ -63,7 +63,7 @@ $(function(){
           var data = {
             'time': filltime,
             'name' : name,
-            'id': id,
+            'url': url,
             'price': price,
             'type': type
           }
