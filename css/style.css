@@ -52,7 +52,6 @@ input {
 }
 
 article {
-  border: solid 1px black;
   position: relative;
   background-color: white;
   color: black;
