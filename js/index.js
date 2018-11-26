@@ -1,12 +1,31 @@
 $(document).ready(function(){
   var key="AIzaSyBUBV0WBBLfwypzCUioVSdBVDH2tDEcO-w";
   var kol_data=[]
-  var url_comment="https://www.googleapis.com/youtube/v3/commentThreads";
+url_comment="https://www.googleapis.com/youtube/v3/commentThreads";
   var url_views="https://www.googleapis.com/youtube/v3/videos";
+  var video="https://www.googleapis.com/youtube/v3/videos";
   var total_views= 0 ;
   var count=0;
   var total_price= 0;
-  var video="https://www.googleapis.com/youtube/v3/videos"
+
+// 切換 留言與非留言模式  
+  $("#mode").on("click",function(){
+  if($(this).val()=="Show Comments"){
+      $(this).val("No Comments");
+      $(this).css("background-color","white");
+      $(this).css("color","black");
+      $(".display_comment").css("display","none")
+    }else{
+      $(this).val("Show Comments");
+      $(this).css("background-color","black");
+      $(this).css("color","white");
+      $(".display_comment").css("display","block")
+      }
+    })
+  
+  
+  
+  
 //載入KOL動態資料
   var url_sheet="https://sheets.googleapis.com/v4/spreadsheets/1p-f2D0IppJYozvw4oU1RHZBDW3rFkBVkqLM2LDApF88/values/'工作表1'";
   var option_sheet={
@@ -15,8 +34,6 @@ $(document).ready(function(){
       majorDimension: 'ROWS',
       valueRenderOption: 'FORMATTED_VALUE'
   };
-  
-
 
   $.getJSON(url_sheet,option_sheet,function(data_kol){
       $.each(data_kol.values,function(k,value){
@@ -30,7 +47,6 @@ $(document).ready(function(){
           })
         }
        });
-      
   // 迴圈開始處理基本參數
       $.each(kol_data, function(i,id){
   // 觀看紀錄基本設定
@@ -47,7 +63,7 @@ $(document).ready(function(){
           videoId: id.videoId
         };
         
-  //影片基本設定
+   // 處理影片基本資訊設定
         var option_video={
           key: key,
           part: 'snippet',
@@ -58,6 +74,7 @@ $(document).ready(function(){
         load_comment();
         function load_comment(){
            $.getJSON(url_comment,options_comment,function(data_comment){
+              // console.log(data_comment);
               loadViews(data_comment);
              })
            } 
@@ -65,49 +82,47 @@ $(document).ready(function(){
         function loadViews(data_comment){
 
           $.getJSON(url_views,options_views,function(data){
-              // console.log(data);
-            var views=data.items[0].statistics.viewCount;
-            var likes=data.items[0].statistics.likeCount;
-            var dislikes=data.items[0].statistics.dislikeCount;
-            var cpm= kol_data[i].price/(views/1000);
-            //計算總數
-            cpm=cpm.toFixed(2);
-            total_views=Number(total_views)+Number(views);
-            total_price=Number(total_price)+Number(kol_data[i].price);
-            count=count+1;
-            
-      // 影片，影片觀看次數資料   
-    $.getJSON(video,option_video,function(data_video){
-      var time=data_video.items[0].snippet.publishedAt;
-          time=time.substring(0,10)+" " +time.substring(11,16)
-            $(".container").append(`
+            $.getJSON(video,option_video,function(data_video){
+              var title=data_video.items[0].snippet.channelTitle;
+              var time=data_video.items[0].snippet.publishedAt;
+                  time=time.substring(0,10)+" " +time.substring(11,16);
+              var views=data.items[0].statistics.viewCount;
+              var likes=data.items[0].statistics.likeCount;
+              var dislikes=data.items[0].statistics.dislikeCount;
+              var cpm= kol_data[i].price/(views/1000);
+              var type=kol_data.type
+              cpm=cpm.toFixed(2);
+              total_views=Number(total_views)+Number(views);
+              total_price=Number(total_price)+Number(kol_data[i].price);
+              count=count+1;
 
-            <article class="col-sm-12 col-md-6">
-              <h3 id=count> ${kol_data[i].name} </h3>
-              <iframe width="400" height="240" 
-            src="https://www.youtube.com/embed/` + id.videoId +` "frameborder="0"   allow="autoplay; 
-            encrypted-media" allowfullscreen>
-              </iframe>
-              <h4 id="count"> Views: ${views}   Likes:  ${likes}   Dislikes: ${dislikes} </h3>
-              <h4 id="count"> Comments: ${data_comment.items.length} Price: ${kol_data[i].price} CPM: ${cpm} 
-            <h4 class="date"> Publish: ${time} 
-            </article> `);
+      // 影片，影片觀看次數資料
             
-//載入上傳時間  
-              
-            })
-            
-            
-            
-      // 計算總Views,價錢,與ＣＰＭ
-            if(count==kol_data.length){
-              $(".display_total").append("<hr>");
-               $(".display_total").append("Views: ",total_views,"\t");
-               $(".display_total").append("Price: ",total_price,"\t");
-               $(".display_total").append("CPM: ",(total_price/(total_views/1000)).toFixed(2),"\t");
-               
-             }
-           }); // getJson尾端 
+                 $(".container").append(`
+        
+        <div class="display_video col-sm-12 col-md-6 col-lg-6">
+        
+        <iframe width="500" height="300" 
+          src="https://www.youtube.com/embed/` + id.videoId +` "frameborder="0"   allow="autoplay; 
+          encrypted-media" allowfullscreen>
+        </iframe>
+        <h3 class="col-0"id=count> ${title} </h3>
+        <h4 class="date"> ${time} / ${kol_data[i].type}</h4>
+        <h4 id="count"> Views: ${views}   Likes:  ${likes}   Dislikes: ${dislikes} </h4>
+        <h4 id="count"> Comments: ${data_comment.items.length} Price: ${kol_data[i].price} CPM: ${cpm}</h4>
+        
+        
+          
+      </div>`);
+           // each方法載入留言
+        $(".container").append(`<div class="display_comment col-sm-12 col-md-6 col-lg-6"></div>`); 
+        $.each(data_comment.items,function(j,item){
+          var comment= item.snippet.topLevelComment.snippet.textDisplay;
+          var img=item.snippet.topLevelComment.snippet.authorProfileImageUrl;
+          $(".display_comment").append(`<div class="col-sm-12 col-md-12 col-lg-12" id="comment"><img class="pic" src="${img}"> ${comment} </div>`)
+        })
+           
+           });}); // getJson尾端 
 
 
           } 
