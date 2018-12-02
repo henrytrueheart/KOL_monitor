@@ -115,11 +115,11 @@ url_comment="https://www.googleapis.com/youtube/v3/commentThreads";
           
       </div>`);
            // each方法載入留言
-        $(".container").append(`<div class="display_comment col-sm-12 col-md-6 col-lg-6"></div>`); 
+        $(".container").append(`<div class="display_comment ${i} col-sm-12 col-md-6 col-lg-6"></div>`); 
         $.each(data_comment.items,function(j,item){
           var comment= item.snippet.topLevelComment.snippet.textDisplay;
           var img=item.snippet.topLevelComment.snippet.authorProfileImageUrl;
-          $(".display_comment").append(`<div class="col-sm-12 col-md-12 col-lg-12" id="comment"><img class="pic" src="${img}"> ${comment} </div>`)
+          $(".${i}").append(`<div class="col-sm-12 col-md-12 col-lg-12" id="comment"><img class="pic" src="${img}"> ${comment} </div>`)
         })
            
            });}); // getJson尾端 
