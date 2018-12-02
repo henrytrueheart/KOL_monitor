@@ -119,7 +119,7 @@ url_comment="https://www.googleapis.com/youtube/v3/commentThreads";
         $.each(data_comment.items,function(j,item){
           var comment= item.snippet.topLevelComment.snippet.textDisplay;
           var img=item.snippet.topLevelComment.snippet.authorProfileImageUrl;
-          $(".${i}").append(`<div class="col-sm-12 col-md-12 col-lg-12" id="comment"><img class="pic" src="${img}"> ${comment} </div>`)
+          $(`.${i}`).append(`<div class="col-sm-12 col-md-12 col-lg-12" id="comment"><img class="pic" src="${img}"> ${comment} </div>`)
         })
            
            });}); // getJson尾端 
